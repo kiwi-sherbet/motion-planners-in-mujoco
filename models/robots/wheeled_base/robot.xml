@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- from https://github.com/vikashplus/mj_envs/tree/master/mj_envs/hand_manipulation_suite/assets -->
+<!-- Information about door can be found in this paper: https://arxiv.org/pdf/1709.10087.pdf -->
+
+<mujoco model="wheeled_base">
+
+    <actuator>
+      <motor ctrllimited="false" joint="joint_fr" name="torque_fr"/>
+      <motor ctrllimited="false" joint="joint_fl" name="torque_fl"/>
+      <motor ctrllimited="false" joint="joint_br" name="torque_br"/>
+      <motor ctrllimited="false" joint="joint_bl" name="torque_bl"/>
+    </actuator>
+
+    <asset>
+      <material name="MatBase" specular="1" shininess="0.3" rgba="0.9 0.9 0.9 1" />
+      <material name="MatWeel" specular="1" shininess="0.3" rgba="0.3 0.3 0.9 1" />
+    </asset>
+    
+    <worldbody>
+      <body name="base" pos="0 0 0">
+        <inertial pos="0.0 0.0 0.137484" mass="10.0" fullinertia="0.2 0.2 0.04 6.0e-5 0.03 6.0e-5"/>
+        <geom pos="0 0 0" size="0.5 0.3 0.1" type="box" 
+          material="MatBase"
+          friction="1 1 1" group="0"
+          />
+        <geom pos="0 0 0.4" size="0.2 0.2 0.3" type="box" 
+          material="MatBase"
+          friction="1 1 1" group="0"
+          />
+
+        <geom pos="0 0 0" size="0.5 0.3 0.1" type="box" 
+          material="MatBase"
+          friction="1 1 1" group="1"
+          />
+        <geom pos="0 0 0.4" size="0.2 0.2 0.3" type="box" 
+          material="MatBase"
+          friction="1 1 1" group="1"
+          />
+
+        <joint armature="0" damping="0" limited="false" name="root" pos="0 0 0" stiffness="0" type="free"/>
+        <site name="origin" pos="0 0 0" rgba="0 0 0 0" size="0.005"/>
+
+        <body name="base_com" pos="0 0 0"/>
+
+        <body name="right_mount" pos="0.0 0.2 0.6" quat="0 0 0.707107 0.707107">
+          <geom size="0.05 0.02" type="cylinder" group="0" material="MatWeel"/>
+        </body>
+
+        <body name="left_mount" pos="0.0 -0.2 0.6" quat="0 0 -0.707107 0.707107">
+          <geom size="0.05 0.02" type="cylinder" group="0" material="MatWeel"/>
+        </body>
+
+        <body name="wheel_fr" pos="0.4 0.33 -0.05" quat="0 0 0.707107 0.707107">
+          <inertial 
+            pos="0 0 0" 
+            mass="0.5" diaginertia="0.2 0.2 0.01"
+            />
+          <geom size="0.1 0.02" type="cylinder" group="0"/>
+          <geom size="0.1 0.02" type="cylinder" group="1" material="MatWeel"/>
+          <joint name="joint_fr"
+            type="hinge" axis="0 0 1" limited="false" 
+            armature="0" damping="0" stiffness="0.0"
+            />
+        </body>
+
+        <body name="wheel_fl" pos="0.4 -0.33 -0.05" quat="0 0 0.707107 0.707107">
+          <inertial 
+            pos="0 0 0" 
+            mass="0.5" diaginertia="0.2 0.2 0.01"
+            />
+          <geom size="0.1 0.02" type="cylinder" group="0"/>
+          <geom size="0.1 0.02" type="cylinder" group="1" material="MatWeel"/>
+          <joint name="joint_fl"
+            type="hinge" axis="0 0 1" limited="false" 
+            armature="0" damping="0" stiffness="0.0"
+            />
+        </body>
+
+        <body name="wheel_br" pos="-0.4 0.33 -0.05" quat="0 0 0.707107 0.707107">
+          <inertial 
+            pos="0 0 0" 
+            mass="0.5" diaginertia="0.2 0.2 0.01"
+            />
+          <geom size="0.1 0.02" type="cylinder" group="0"/>
+          <geom size="0.1 0.02" type="cylinder" group="1" material="MatWeel"/>
+          <joint name="joint_br" 
+            type="hinge" axis="0 0 1" limited="false" 
+            armature="0" damping="0" stiffness="0.0"
+            />
+        </body>
+
+        <body name="wheel_bl" pos="-0.4 -0.33 -0.05" quat="0 0 0.707107 0.707107">
+          <inertial 
+            pos="0 0 0" 
+            mass="0.5" diaginertia="0.2 0.2 0.01"
+            />
+          <geom size="0.1 0.02" type="cylinder" group="0"/>
+          <geom size="0.1 0.02" type="cylinder" group="1" material="MatWeel"/>
+          <joint name="joint_bl"
+            type="hinge" axis="0 0 1" limited="false" 
+            armature="0" damping="0" stiffness="0.0"
+            />
+        </body>
+
+      </body>
+
+    </worldbody>
+</mujoco>
